@@ -22,7 +22,7 @@ namespace CS1145_RazorPages.Pages.Movies
             Context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task OnGetAsync()
         {
             ActorSelectList = await Context.Actors.Select(a => new SelectListItem()
                     {
@@ -30,15 +30,15 @@ namespace CS1145_RazorPages.Pages.Movies
                         Text = a.ToString()
                     }
                 ).ToListAsync();
-
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             Movie.Actors = await Context.Actors.Where(a => ActorIds.Contains(a.Id)).ToListAsync();
+
             Context.Movies.Add(Movie);
             await Context.SaveChangesAsync();
+
             ViewData["Created"] = Movie.Title;
             return RedirectToPage("Index");
         }

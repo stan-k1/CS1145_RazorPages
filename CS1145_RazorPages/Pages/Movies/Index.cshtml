@@ -1,50 +1,48 @@
 ﻿@page
 @model CS1145_RazorPages.Pages.Movies.IndexModel
-@{
-    <h1>Movies</h1>
-    <a class="btn btn-primary" asp-page="create">Create New</a>
+<h1>Movies</h1>
+<a class="btn btn-primary" asp-page="create">Create New</a>
 
-    @if (ViewData["Created"] is not null)
-    {
-        <div class="alert alert-success" role="alert">
-            Movie @ViewData["Created"] created successfully!
-        </div>
-    }
-
-    <table class="table">
-        <thead>
-        <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Genre</th>
-        <th>Director</th>
-        <th>Actors</th>
-        <th>Edit</th>
-        </thead>
-        <tbody>
-        @foreach (var movie in Model.Movies)
-        {
-            <tr>
-                <td>@movie.Title</td>
-                <td>@movie.Description</td>
-                <td>@movie.Genre</td>
-                <td>@movie.Director</td>
-                <td>
-                    @if (movie.Actors.Count > 0)
-                    {
-                        string actors = null;
-                        @foreach (var actor in movie.Actors)
-                        {
-                            actors = actors + $", {actor.FirstName} {actor.LastName}";
-                        }
-                        @actors.Substring(2)
-                    }
-                </td>
-                <td>
-                    <a asp-page="edit" asp-route-id="@movie.Id">Edit</a>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+@if (ViewData["Created"] is not null)
+{
+    <div class="alert alert-success" role="alert">
+        Movie @ViewData["Created"] created successfully!
+    </div>
 }
+
+<table class="table">
+    <thead>
+    <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Genre</th>
+    <th>Director</th>
+    <th>Actors</th>
+    <th>Edit</th>
+    </thead>
+    <tbody>
+    @foreach (var movie in Model.Movies)
+    {
+        <tr>
+            <td>@movie.Title</td>
+            <td>@movie.Description</td>
+            <td>@movie.Genre</td>
+            <td>@movie.Director</td>
+            <td>
+                @if (movie.Actors.Count > 0)
+                {
+                    string actors = null;
+                    @foreach (var actor in movie.Actors)
+                    {
+                        actors = actors + $", {actor.FirstName} {actor.LastName}";
+                    }
+                    @actors.Substring(2)
+                }
+            </td>
+            <td>
+                <a asp-page="edit" asp-route-id="@movie.Id">Edit</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
